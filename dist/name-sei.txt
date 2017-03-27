@@ -1,6 +1,11 @@
-# これは naist-jdic ( http://sourceforge.jp/projects/naist-jdic/ ) から
-# 「名詞,固有名詞,人名,姓」のエントリを抽出し、
-# そこから更に「カナ表記」列だけを抽出/整列/重複除去したものです。
+# 
+# build : 2017/03/28 02:42:41
+# 
+# これは naist-jdic ( http://sourceforge.jp/projects/naist-jdic/ ) より
+# 一部のみを抽出したものです。
+# 詳細については https://github.com/ayamada/jdic-works を参照してください。
+# 
+# 以下に naist-jdic のライセンスを示します。
 # 
 # Copyright (c) 2009, Nara Institute of Science and Technology, Japan.
 # 
