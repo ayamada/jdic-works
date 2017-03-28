@@ -47,14 +47,22 @@ dist/name-mei.txt:
 
 
 
+dist/indeclinable.txt:
+	@echo "Dont support auto-generate"
+
+
+
+
+
+
+
+
+
 experimental/toponym-all.txt:
 	$(write-header)
 	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,固有名詞,地域,一般,' | cut -d, -f12 | sort | uniq >> $@
 
 
-
-experimental/adjective.txt:
-	@echo "Dont support auto-generate"
 
 
 
