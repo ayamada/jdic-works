@@ -1,5 +1,5 @@
 # 
-# build : 2017/03/28 18:20:03
+# indeclinable.txt : 2017/03/28 18:20:03
 # 
 # これは naist-jdic ( http://sourceforge.jp/projects/naist-jdic/ ) より
 # 一部のみを抽出したものです。

@@ -1,13 +1,21 @@
 
-.PHONY: help all
+.PHONY: help all clean dist experimental dist-clean experimental-clean
 
 help:
 	@echo "See Makefile"
 
-# タイムスタンプが意味を持つので、無駄な更新をしないようにする必要がある
-# (更新したい場合は事前に手でファイルを消すというルールにする)
-all: ;
+# TODO: このリストは動的に取得したい。
+# ;     ただし indeclinable.txt のような、自動生成できないファイルを
+#       自動的に除外できなくてはならない。いい扱い方を考える必要がある
+DIST_FILES := \
+dist/name-general.txt \
+dist/name-sei.txt \
+dist/name-mei.txt
 
+# TODO: このリストは動的に取得したい。詳細は同上
+EXPERIMENTAL_FILES := \
+experimental/toponym-all.txt \
+experimental/adjective-verb.txt
 
 TMP_PATH := tmp
 
@@ -15,9 +23,10 @@ JDIC_GZ_PATH := sources/naist-jdic-utf8.csv.gz
 
 TEMPLATE_HEADER_PATH := template/header.txt
 
+
 define write-header
 echo '# ' > $@
-date '+# build : %Y/%m/%d %H:%M:%S' >> $@
+echo '#' `basename $@` `date '+ : %Y/%m/%d %H:%M:%S'` >> $@
 echo '# ' >> $@
 cat $(TEMPLATE_HEADER_PATH) >> $@
 endef
@@ -28,6 +37,36 @@ endef
 
 
 
+
+
+dist: $(DIST_FILES)
+
+experimental: $(EXPERIMENTAL_FILES)
+
+all: dist experimental
+
+
+
+
+# NB: これらは基本的に実行してはならない
+#     (詳細は後述)
+
+dist-clean:
+	rm -f $(DIST_FILES)
+
+experimental-clean:
+	rm -f $(EXPERIMENTAL_FILES)
+
+clean: dist-clean experimental-clean
+
+
+
+
+
+
+# ヘッダ内のタイムスタンプが重要な意味を持つので、
+# 無駄な更新をしないようにする必要がある
+# (更新したい場合のみ、事前に手で個別にファイルを消すというルール)
 
 dist/name-general.txt:
 	$(write-header)
@@ -65,6 +104,9 @@ experimental/toponym-all.txt:
 
 
 
+experimental/adjective-verb.txt:
+	$(write-header)
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,形容動詞語幹,' | cut -d, -f1 | sort | uniq >> $@
 
 
 

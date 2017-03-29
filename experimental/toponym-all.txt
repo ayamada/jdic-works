@@ -1,5 +1,5 @@
 # 
-# build : 2017/03/28 03:28:37
+# toponym-all.txt : 2017/03/30 06:25:54
 # 
 # これは naist-jdic ( http://sourceforge.jp/projects/naist-jdic/ ) より
 # 一部のみを抽出したものです。
