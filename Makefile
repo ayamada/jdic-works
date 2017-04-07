@@ -1,5 +1,5 @@
 
-.PHONY: help all clean dist experimental dist-clean experimental-clean
+.PHONY: help all clean dist experimental dist-clean experimental-clean header
 
 help:
 	@echo "See Makefile"
@@ -44,8 +44,12 @@ dist: $(DIST_FILES)
 
 experimental: $(EXPERIMENTAL_FILES)
 
-all: dist experimental
+all: header dist experimental
 
+header:
+	$(prepare-tmp)
+	$(write-header)
+	mv header $(TMP_PATH)/header.txt
 
 
 
