@@ -14,6 +14,7 @@ dist/name-mei.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
 EXPERIMENTAL_FILES := \
+experimental/noun-all.txt \
 experimental/toponym-all.txt \
 experimental/adjective-verb.txt
 
@@ -94,6 +95,12 @@ dist/indeclinable.txt:
 
 
 
+
+
+
+experimental/noun-all.txt:
+	$(write-header)
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
 
 
 
