@@ -92,9 +92,16 @@ dist/name-mei.txt:
 
 
 dist/indeclinable.txt:
+	#$(write-header)
+	#gzip -dc $(JDIC_GZ_PATH) | grep ',体言接続,' | cut -d, -f1 | sort | uniq >> $@
 	@echo "Dont support auto-generate"
 
 
+
+dist/adjective-verb.txt:
+	#$(write-header)
+	#gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,形容動詞語幹,' | cut -d, -f1 | sort | uniq >> $@
+	@echo "Dont support auto-generate"
 
 
 
@@ -114,10 +121,6 @@ experimental/toponym-all.txt:
 
 
 
-
-experimental/adjective-verb.txt:
-	$(write-header)
-	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,形容動詞語幹,' | cut -d, -f1 | sort | uniq >> $@
 
 
 
