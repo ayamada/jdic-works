@@ -105,6 +105,10 @@ dist/adjective-verb.txt:
 
 
 
+dist/toponym-markov.txt: experimental/toponym-all.txt
+	$(write-header)
+	lein exec scripts/toponym2marcov.clj experimental/toponym-all.txt > $@
+
 
 
 
