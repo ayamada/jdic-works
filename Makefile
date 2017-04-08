@@ -10,13 +10,13 @@ help:
 DIST_FILES := \
 dist/name-general.txt \
 dist/name-sei.txt \
-dist/name-mei.txt
+dist/name-mei.txt \
+dist/toponym-markov.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
 EXPERIMENTAL_FILES := \
 experimental/noun-all.txt \
-experimental/toponym-all.txt \
-experimental/adjective-verb.txt
+experimental/toponym-all.txt
 
 TMP_PATH := tmp
 
@@ -91,6 +91,12 @@ dist/name-mei.txt:
 
 
 
+dist/toponym-markov.txt: experimental/toponym-all.txt
+	$(write-header)
+	lein exec scripts/toponym2marcov.clj experimental/toponym-all.txt > $@
+
+
+
 dist/indeclinable.txt:
 	#$(write-header)
 	#gzip -dc $(JDIC_GZ_PATH) | grep ',体言接続,' | cut -d, -f1 | sort | uniq >> $@
@@ -105,9 +111,9 @@ dist/adjective-verb.txt:
 
 
 
-dist/toponym-markov.txt: experimental/toponym-all.txt
-	$(write-header)
-	lein exec scripts/toponym2marcov.clj experimental/toponym-all.txt > $@
+
+
+
 
 
 

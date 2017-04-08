@@ -1,8 +1,8 @@
 # 
-# name-general.txt : 2017/03/30 06:25:49
+# name-general.txt : 2017/04/08 15:46:22
 # 
-# これは naist-jdic ( http://sourceforge.jp/projects/naist-jdic/ ) より
-# 一部のみを抽出したものです。
+# これは naist-jdic ( http://sourceforge.jp/projects/naist-jdic/ ) を元に
+# 抽出や加工を行ったものです。
 # 詳細については https://github.com/ayamada/jdic-works を参照してください。
 # 
 # 以下に naist-jdic のライセンスを示します。
