@@ -121,7 +121,7 @@ dist/adjective-verb.txt:
 
 experimental/noun-all.txt:
 	$(write-header)
-	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cut -d, -f1 | sort | uniq >> $@
 
 
 
