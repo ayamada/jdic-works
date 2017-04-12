@@ -31,9 +31,9 @@
               (when-not (= current \$)
                 (recur current (rest left)))))))
       ;; output length-table
-      (doseq [len (sort (keys @length-table))]
-        (println len (get @length-table len)))
-      (newline)
+      ;; (doseq [len (sort (keys @length-table))]
+      ;;   (println len (get @length-table len)))
+      ;; (newline)
       ;; output bigram-table
       (doseq [k (sort (keys @bigram-table))]
         (println k (get @bigram-table k))))
