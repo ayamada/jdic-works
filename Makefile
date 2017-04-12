@@ -1,5 +1,5 @@
 
-.PHONY: help all clean dist beta dist-clean beta-clean header
+.PHONY: help all clean dist beta work dist-clean beta-clean work-clean header
 
 help:
 	@echo "See Makefile"
@@ -14,9 +14,12 @@ dist/name-mei.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
 BETA_FILES := \
-beta/toponym-markov.txt \
 beta/noun-exotic.txt \
 beta/noun-kanji.txt \
+beta/toponym-markov.txt
+
+# TODO: このリストは動的に取得したい。詳細は同上
+WORK_FILES := \
 beta/noun-all.txt \
 beta/toponym-all.txt
 
@@ -46,7 +49,9 @@ dist: $(DIST_FILES)
 
 beta: $(BETA_FILES)
 
-all: header dist beta
+work: $(WORK_FILES)
+
+all: header dist beta work
 
 header:
 	$(prepare-tmp)
@@ -64,7 +69,10 @@ dist-clean:
 beta-clean:
 	rm -f $(BETA_FILES)
 
-clean: dist-clean beta-clean
+work-clean:
+	rm -f $(WORK_FILES)
+
+clean: dist-clean beta-clean work-clean
 
 
 
@@ -121,21 +129,21 @@ beta/noun-kanji.txt:
 
 
 
-beta/noun-all.txt:
-	$(write-header)
-	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
-
-
-
 beta/toponym-markov.txt: beta/toponym-all.txt
 	$(write-header)
 	lein exec scripts/toponym2marcov.clj beta/toponym-all.txt > $@
 
 
 
-beta/toponym-all.txt:
+work/toponym-all.txt:
 	$(write-header)
 	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,固有名詞,地域,一般,' | cut -d, -f12 | sort | uniq >> $@
+
+
+
+work/noun-all.txt:
+	$(write-header)
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
 
 
 
