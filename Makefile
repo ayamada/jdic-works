@@ -1,5 +1,5 @@
 
-.PHONY: help all clean dist experimental dist-clean experimental-clean header
+.PHONY: help all clean dist beta dist-clean beta-clean header
 
 help:
 	@echo "See Makefile"
@@ -13,12 +13,12 @@ dist/name-sei.txt \
 dist/name-mei.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
-EXPERIMENTAL_FILES := \
-experimental/toponym-markov.txt \
-experimental/noun-exotic.txt \
-experimental/noun-kanji.txt \
-experimental/noun-all.txt \
-experimental/toponym-all.txt
+BETA_FILES := \
+beta/toponym-markov.txt \
+beta/noun-exotic.txt \
+beta/noun-kanji.txt \
+beta/noun-all.txt \
+beta/toponym-all.txt
 
 TMP_PATH := tmp
 
@@ -44,9 +44,9 @@ endef
 
 dist: $(DIST_FILES)
 
-experimental: $(EXPERIMENTAL_FILES)
+beta: $(BETA_FILES)
 
-all: header dist experimental
+all: header dist beta
 
 header:
 	$(prepare-tmp)
@@ -61,10 +61,10 @@ header:
 dist-clean:
 	rm -f $(DIST_FILES)
 
-experimental-clean:
-	rm -f $(EXPERIMENTAL_FILES)
+beta-clean:
+	rm -f $(BETA_FILES)
 
-clean: dist-clean experimental-clean
+clean: dist-clean beta-clean
 
 
 
@@ -109,31 +109,31 @@ dist/adjective-verb.txt:
 
 
 
-experimental/noun-exotic.txt:
+beta/noun-exotic.txt:
 	$(write-header)
 	cat work/noun-katakana.map | lein exec scripts/filter-mark.clj x | sort | uniq >> $@
 
 
 
-experimental/noun-kanji.txt:
+beta/noun-kanji.txt:
 	$(write-header)
 	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cut -d, -f1 | lein exec scripts/filter-kanji-only.clj | sort | uniq >> $@
 
 
 
-experimental/noun-all.txt:
+beta/noun-all.txt:
 	$(write-header)
 	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
 
 
 
-experimental/toponym-markov.txt: experimental/toponym-all.txt
+beta/toponym-markov.txt: beta/toponym-all.txt
 	$(write-header)
-	lein exec scripts/toponym2marcov.clj experimental/toponym-all.txt > $@
+	lein exec scripts/toponym2marcov.clj beta/toponym-all.txt > $@
 
 
 
-experimental/toponym-all.txt:
+beta/toponym-all.txt:
 	$(write-header)
 	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,固有名詞,地域,一般,' | cut -d, -f12 | sort | uniq >> $@
 
