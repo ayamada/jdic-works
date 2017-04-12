@@ -98,30 +98,32 @@ dist/toponym-markov.txt: experimental/toponym-all.txt
 
 
 dist/indeclinable.txt:
-	#$(write-header)
-	#gzip -dc $(JDIC_GZ_PATH) | grep ',体言接続,' | cut -d, -f1 | sort | uniq >> $@
 	@echo "Dont support auto-generate"
+
+#	$(write-header)
+#	gzip -dc $(JDIC_GZ_PATH) | grep ',体言接続,' | cut -d, -f1 | sort | uniq >> $@
 
 
 
 dist/adjective-verb.txt:
-	#$(write-header)
-	#gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,形容動詞語幹,' | cut -d, -f1 | sort | uniq >> $@
 	@echo "Dont support auto-generate"
 
+#	$(write-header)
+#	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,形容動詞語幹,' | cut -d, -f1 | sort | uniq >> $@
 
 
 
+experimental/noun-exotic.txt:
+	@echo "Dont support auto-generate"
 
-
-
-
+#	$(write-header)
+#	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cut -d, -f1 | sort | uniq | lein exec scripts/filter-katakana.clj >> $@
 
 
 
 experimental/noun-all.txt:
 	$(write-header)
-	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cut -d, -f1 | sort | uniq >> $@
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
 
 
 
