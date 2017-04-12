@@ -16,6 +16,7 @@ dist/toponym-markov.txt
 # TODO: このリストは動的に取得したい。詳細は同上
 EXPERIMENTAL_FILES := \
 experimental/noun-all.txt \
+experimental/noun-exotic.txt \
 experimental/toponym-all.txt
 
 TMP_PATH := tmp
@@ -114,10 +115,8 @@ dist/adjective-verb.txt:
 
 
 experimental/noun-exotic.txt:
-	@echo "Dont support auto-generate"
-
-#	$(write-header)
-#	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cut -d, -f1 | sort | uniq | lein exec scripts/filter-katakana.clj >> $@
+	$(write-header)
+	cat work/noun-katakana.map | lein exec scripts/filter-mark.clj x | sort | uniq >> $@
 
 
 

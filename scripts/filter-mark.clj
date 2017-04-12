@@ -15,7 +15,7 @@
         (cond
           (= "" line) (newline)
           (re-find #"^#" line) nil
-          :else (when-let [[m stripped] (re-find #"^. .*" line)]
+          :else (when-let [[_ m stripped] (re-find #"^(.) (.*)" line)]
                   (when (= mark m)
                     (println stripped))))
         (recur)))
