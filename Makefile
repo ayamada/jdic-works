@@ -10,13 +10,14 @@ help:
 DIST_FILES := \
 dist/name-general.txt \
 dist/name-sei.txt \
-dist/name-mei.txt \
-dist/toponym-markov.txt
+dist/name-mei.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
 EXPERIMENTAL_FILES := \
-experimental/noun-all.txt \
+experimental/toponym-markov.txt \
 experimental/noun-exotic.txt \
+experimental/noun-kanji.txt \
+experimental/noun-all.txt \
 experimental/toponym-all.txt
 
 TMP_PATH := tmp
@@ -92,12 +93,6 @@ dist/name-mei.txt:
 
 
 
-dist/toponym-markov.txt: experimental/toponym-all.txt
-	$(write-header)
-	lein exec scripts/toponym2marcov.clj experimental/toponym-all.txt > $@
-
-
-
 dist/indeclinable.txt:
 	@echo "Dont support auto-generate"
 
@@ -120,9 +115,21 @@ experimental/noun-exotic.txt:
 
 
 
+experimental/noun-kanji.txt:
+	$(write-header)
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cut -d, -f1 | lein exec scripts/filter-kanji-only.clj | sort | uniq >> $@
+
+
+
 experimental/noun-all.txt:
 	$(write-header)
 	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,一般,' | cat | sort | uniq >> $@
+
+
+
+experimental/toponym-markov.txt: experimental/toponym-all.txt
+	$(write-header)
+	lein exec scripts/toponym2marcov.clj experimental/toponym-all.txt > $@
 
 
 
