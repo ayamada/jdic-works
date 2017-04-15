@@ -129,9 +129,9 @@ beta/noun-kanji.txt:
 
 
 
-beta/toponym-bigram.txt: beta/toponym-all.txt
+beta/toponym-bigram.txt: work/toponym-all.txt
 	$(write-header)
-	lein exec scripts/toponym2bigram.clj beta/toponym-all.txt > $@
+	lein exec scripts/toponym2bigram.clj work/toponym-all.txt >> $@
 
 
 
