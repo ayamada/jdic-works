@@ -16,6 +16,7 @@ dist/name-mei.txt
 BETA_FILES := \
 beta/noun-exotic.txt \
 beta/noun-kanji.txt \
+beta/toponym-trigram.txt \
 beta/toponym-bigram.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
@@ -129,9 +130,15 @@ beta/noun-kanji.txt:
 
 
 
-beta/toponym-bigram.txt: work/toponym-all.txt
+beta/toponym-trigram.txt:
 	$(write-header)
-	lein exec scripts/toponym2bigram.clj work/toponym-all.txt >> $@
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,固有名詞,地域,一般,' | cut -d, -f12 | sort | uniq | lein exec scripts/toponym2markov.clj 3 >> $@
+
+
+
+beta/toponym-bigram.txt:
+	$(write-header)
+	gzip -dc $(JDIC_GZ_PATH) | grep ',名詞,固有名詞,地域,一般,' | cut -d, -f12 | sort | uniq | lein exec scripts/toponym2markov.clj 2 >> $@
 
 
 
