@@ -16,7 +16,7 @@ dist/name-mei.txt
 BETA_FILES := \
 beta/noun-exotic.txt \
 beta/noun-kanji.txt \
-beta/toponym-markov.txt
+beta/toponym-bigram.txt
 
 # TODO: このリストは動的に取得したい。詳細は同上
 WORK_FILES := \
@@ -129,9 +129,9 @@ beta/noun-kanji.txt:
 
 
 
-beta/toponym-markov.txt: beta/toponym-all.txt
+beta/toponym-bigram.txt: beta/toponym-all.txt
 	$(write-header)
-	lein exec scripts/toponym2marcov.clj beta/toponym-all.txt > $@
+	lein exec scripts/toponym2bigram.clj beta/toponym-all.txt > $@
 
 
 
